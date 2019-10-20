@@ -1,19 +1,19 @@
 "use strict";
 
-function prime(N) {
+function primes(N) {
   let arr = [];
   for (let i = 2; i <= N; i++) {
     arr.push(i);
   }
-  const result = [];
-  let i = 0;
-  while (i < Math.sqrt(N)) {
-    i = arr.shift();
-    result.push(i);
-    arr = arr.filter(el => el % i);
+  const limit = Math.floor(Math.sqrt(N));
+  for (let i = 0; arr[i] < limit; i++) {
+    if (arr[i] === 0) continue;
+    const prime = arr[i];
+    for (let j = i * 2; j < arr.length; j += prime) {
+      arr[j] = 0;
+    }
   }
-  result.push(...arr);
-  return result;
+  return arr.filter(Boolean);
 }
 
-console.log("prime(23) = ", prime(23));
+console.log("primes(23) = ", primes(23));
